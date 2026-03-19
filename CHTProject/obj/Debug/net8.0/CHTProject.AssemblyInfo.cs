@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CHTProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+acffff985aaa2c5b3f6936796878e2a1adecfd74")]
 [assembly: System.Reflection.AssemblyProductAttribute("CHTProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CHTProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

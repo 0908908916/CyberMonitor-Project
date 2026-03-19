@@ -68,6 +68,8 @@
   </div>
 </template>
 
+
+
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
@@ -77,17 +79,19 @@ const analysisResult = ref('') // AI 分析結果變數
 const newLog = ref({ deviceName: '', ip: '', status: '監控中', message: '設備已上線', timestamp: new Date().toISOString() })
 let autoPingTimer = null;
 
+const API_BASE = "http://localhost:5024/api/log"; // 確保埠號與 docker-compose 一致
+
 // 獲取所有日誌
 const fetchLogs = async () => {
-  const res = await axios.get('http://localhost:5024/api/log')
-  logs.value = res.data
+  const res = await axios.get(API_BASE);
+  logs.value = res.data;
   autoPingAll();
 }
 
 // 新增監控設備
 const createLog = async () => {
   if(!newLog.value.deviceName || !newLog.value.ip) return alert("請填寫名稱與 IP");
-  await axios.post('http://localhost:5024/api/log', newLog.value);
+  await axios.post(API_BASE, newLog.value);
   newLog.value = { deviceName: '', ip: '', status: '監控中', message: '設備已上線', timestamp: new Date().toISOString() };
   fetchLogs();
 }
@@ -95,7 +99,7 @@ const createLog = async () => {
 // 單體 Ping 測試
 const testPing = async (log) => {
   try {
-    const res = await axios.get(`http://localhost:5024/api/log/ping/${log.id}`);
+    const res = await axios.get(`${API_BASE}/ping/${log.id}`);
     
     // 1. 更新前端畫面顯示
     log.isOnline = res.data.isAlive;
@@ -105,7 +109,7 @@ const testPing = async (log) => {
     const updatedStatus = log.isOnline ? "✅ 在線" : "❌ 斷線";
     const updatedMsg = log.isOnline ? `延遲: ${log.ms}ms` : "主機無回應 (Request Timeout)";
     
-    await axios.put(`http://localhost:5024/api/log/${log.id}`, {
+    await axios.put(`${API_BASE}/${log.id}`, {
       ...log,
       status: updatedStatus,
       message: updatedMsg

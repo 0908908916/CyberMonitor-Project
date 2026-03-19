@@ -1,44 +1,58 @@
+version: "3.9"
 
 services:
-  # 1. 資料庫服務 (PostgreSQL)
   db:
-    image: postgres:latest
+    image: postgres:15   # 固定版本，避免 18+ 版本資料目錄不兼容
     container_name: cyber_db
     restart: always
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT_EXTERNAL}:5432"
+    networks:
+      - cyber_net
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data   # 乾淨 volume 管理資料
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s   # 等 DB 初始化完成再開始健康檢查
 
-  # 2. 後端 API 服務 (.NET 8)
   backend:
     build:
       context: ./CHTProject
       dockerfile: Dockerfile
     container_name: cyber_backend
     environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
-      - DB_PASSWORD=${DB_PASSWORD} # 給 Program.cs 讀取的
-      - ASPNETCORE_ENVIRONMENT=Development
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
+      ASPNETCORE_ENVIRONMENT: Development
     ports:
-      - "5024:8080"
+      - "${BACKEND_PORT}:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy   # 等 db 健康檢查通過再啟動
+    networks:
+      - cyber_net
 
-  # 3. 前端網頁服務 (Vue 3)
   frontend:
     build:
       context: ./CHT-Frontend
       dockerfile: Dockerfile
     container_name: cyber_frontend
     ports:
-      - "5173:80"
+      - "${FRONTEND_PORT}:80"
     depends_on:
       - backend
+    networks:
+      - cyber_net
+
+networks:
+  cyber_net:
+    driver: bridge
 
 volumes:
   db_data:
