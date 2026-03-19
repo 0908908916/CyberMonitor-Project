@@ -20,3 +20,27 @@
 ## 🔒 安全聲明
 
 本專案透過 `.gitignore` 嚴格過濾 `.env` 檔案，確保資料庫認證資訊不外洩。
+
+環境準備：
+
+安裝 Docker Desktop。
+
+從 GitHub Clone 本專案：git clone [你的 GitHub 網址]
+
+設定環境變數：
+
+在根目錄建立 .env 檔案並填入資料庫帳密：
+
+程式碼片段
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=CyberSecurityLogDB
+啟動系統：
+
+於終端機執行：docker-compose up --build -d
+
+存取服務：
+
+監控面板 (前端)：http://localhost:5173
+
+API 測試介面 (Swagger)：http://localhost:5024/swagger
