@@ -1,0 +1,17 @@
+D:\CyberMonitor-Project\CHTProject\publish\CHTProject.exe
+D:\CyberMonitor-Project\CHTProject\publish\appsettings.Development.json
+D:\CyberMonitor-Project\CHTProject\publish\appsettings.json
+D:\CyberMonitor-Project\CHTProject\publish\CHTProject.dll
+D:\CyberMonitor-Project\CHTProject\publish\CHTProject.runtimeconfig.json
+D:\CyberMonitor-Project\CHTProject\publish\CHTProject.pdb
+D:\CyberMonitor-Project\CHTProject\publish\Microsoft.AspNetCore.OpenApi.dll
+D:\CyberMonitor-Project\CHTProject\publish\Microsoft.EntityFrameworkCore.dll
+D:\CyberMonitor-Project\CHTProject\publish\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\CyberMonitor-Project\CHTProject\publish\Microsoft.EntityFrameworkCore.Relational.dll
+D:\CyberMonitor-Project\CHTProject\publish\Microsoft.OpenApi.dll
+D:\CyberMonitor-Project\CHTProject\publish\Npgsql.dll
+D:\CyberMonitor-Project\CHTProject\publish\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\CyberMonitor-Project\CHTProject\publish\Swashbuckle.AspNetCore.Swagger.dll
+D:\CyberMonitor-Project\CHTProject\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\CyberMonitor-Project\CHTProject\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\CyberMonitor-Project\CHTProject\publish\CHTProject.deps.json

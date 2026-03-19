@@ -1,0 +1,4 @@
+#password # 資料庫設定 # 後端 API 設定
+.env
+# 忽略開發設定檔
+appsettings.Development.json

@@ -1,0 +1,44 @@
+
+services:
+  # 1. 資料庫服務 (PostgreSQL)
+  db:
+    image: postgres:latest
+    container_name: cyber_db
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # 2. 後端 API 服務 (.NET 8)
+  backend:
+    build:
+      context: ./CHTProject
+      dockerfile: Dockerfile
+    container_name: cyber_backend
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+      - DB_PASSWORD=${DB_PASSWORD} # 給 Program.cs 讀取的
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5024:8080"
+    depends_on:
+      - db
+
+  # 3. 前端網頁服務 (Vue 3)
+  frontend:
+    build:
+      context: ./CHT-Frontend
+      dockerfile: Dockerfile
+    container_name: cyber_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

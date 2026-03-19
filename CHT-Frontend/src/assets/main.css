@@ -1,0 +1,8 @@
+/* 清除所有瀏覽器預設的邊距 */
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* 防止出現橫向捲軸 */
+}
