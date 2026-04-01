@@ -30,6 +30,10 @@
 設定環境變數：
 
 在根目錄建立 .env 檔案並填入資料庫帳密：
+# 外部連線埠號 (避免衝突)
+DB_PORT_EXTERNAL=5435
+BACKEND_PORT=5024
+FRONTEND_PORT=5173
 
 程式碼片段
 DB_USER=postgres
