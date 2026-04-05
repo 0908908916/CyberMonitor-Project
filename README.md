@@ -48,3 +48,6 @@ DB_NAME=CyberSecurityLogDB
 監控面板 (前端)：http://localhost:5173
 
 API 測試介面 (Swagger)：http://localhost:5024/swagger
+
+<img width="1043" height="671" alt="螢幕擷取畫面 2026-04-05 092703" src="https://github.com/user-attachments/assets/a080136d-28c8-4972-a8b7-9340aa858e2e" />
+
